@@ -1,0 +1,31 @@
+package:
+  id: minizip
+  name: minizip
+  version: 1.1.1
+  kind: lib
+  description: |
+    minizip.
+
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/minizip.git
+  version: master
+  commit: 38df9ad87fbabada621272224ae7ad2a23003e89
+  patch:
+  - include.patch
+  - automake.patch
+  - traversal.patch
+build:
+  kind: manual
+  manual:
+    configure: |
+      #exec bash
+      autoreconf -ivf
+      ./configure --prefix=${PREFIX} --libdir=${PREFIX}/lib
+      make -j6
+      make -j6 install
